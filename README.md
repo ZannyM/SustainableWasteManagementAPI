@@ -1,2 +1,7 @@
 # SustainableWasteManagementAPI
- SustainableWasteManagementAPI is a Spring Boot RESTful API that helps manage waste efficiently. It allows users to handle waste categories, recycling tips, and disposal guidelines, promoting eco-friendly practices for a cleaner planet.
+
+## Overview
+**SustainableWasteManagementAPI** is a RESTful API built using Spring Boot, aimed at promoting sustainability through effective waste management. The API allows users to manage and retrieve data on:
+- Waste categories
+- Recycling tips
+- Disposal guidelines
