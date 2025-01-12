@@ -5,3 +5,9 @@
 - Waste categories
 - Recycling tips
 - Disposal guidelines
+
+## Core functionalities:
+- CRUD operations for waste categories, recycling tips, and disposal guidelines.
+- Input validation to ensure data integrity.
+- Structured JSON responses.
+- Error handling mechanisms.
