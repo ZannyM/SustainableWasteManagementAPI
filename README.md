@@ -11,3 +11,12 @@
 - Input validation to ensure data integrity.
 - Structured JSON responses.
 - Error handling mechanisms.
+
+## Tools and Technologies
+- Framework: Spring Boot
+- Database: H2 (In-memory database for development)
+- Version Control: Git, GitHub
+- IDE: IntelliJ IDEA
+- Testing: JUnit for unit testing
+- API Testing: Postman or cURL
+- Documentation: Swagger for API documentation
