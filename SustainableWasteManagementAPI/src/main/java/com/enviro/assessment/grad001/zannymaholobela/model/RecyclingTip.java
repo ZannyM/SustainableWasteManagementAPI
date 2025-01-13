@@ -18,5 +18,30 @@ public class RecyclingTip {
     @NotNull
     private String description;
 
-    //Implement getters and setters
+    //Getters
+
+    public Long getId(){
+        return id;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+    //Setters
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
