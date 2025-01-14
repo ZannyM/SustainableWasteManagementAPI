@@ -38,40 +38,45 @@ public class WasteCategoryService {
         return wasteCategoryRepository.save(category);
     }
     /**
-     * Get one WasteCategory by ID.
+     * Find one WasteCategory by ID.
      *
      * @param id the ID of the entity
      * @return the entity
      */
-//    public Optional<WasteCategory> getWasteCategoryById(Long id){
-//        return WasteCategoryRepository.findById(id);
-//    }
+    public Optional<WasteCategory> getWasteCategoryById(Long id){
+        return wasteCategoryRepository.findById(id);
+    }
+
+    //Find waste category by type
+    public List<WasteCategory> getCategoriesByType(String type){
+        return wasteCategoryRepository.findByType(type);
+    }
     /**
      * Update a WasteCategory.
      *
      * @param id the ID of the entity
-     * @param updatedProduct the updated entity
+     * @param updatedWasteCategory the updated entity
      * @return the updated entity
      */
-//    public WasteCategory updateWasteCategory(Long id, WasteCategory updatedWasteCategory){
-//        Optional<WasteCategory> existingWasteCategory = WasteCategoryRepository.findById(id);
-//        if(existingWasteCategory.isPresent()){
-//            WasteCategory wasteCategory = existingWasteCategory.get();
-//            WasteCategory.setName(updatedWasteCategory.getName());
-//            WasteCategory.setId(updatedWasteCategory.getId());
-//            WasteCategory.setDescription(updatedWasteCategory.getDescription());
-//            return WasteCategoryRepository.save(wasteCategory);
-//        }else {
-//            throw new RuntimeException("WasteCategory not found!")
-//        }
-//    }
+    public Optional<WasteCategory> updateWasteCategory(Long id, WasteCategory updatedWasteCategory){
+        return Optional.ofNullable(wasteCategoryRepository.findById(id).map(existingCategory -> {
+            existingCategory.setName(updatedWasteCategory.getName());
+            existingCategory.setDescription(updatedWasteCategory.getDescription());
+            existingCategory.setType(updatedWasteCategory.getType());
+            return wasteCategoryRepository.save(existingCategory);
+        }).orElseThrow(() -> new RuntimeException("WasteCategory not found with ID: " + id)));
+    }
     /**
      * Delete the product by ID.
      *
      * @param id the ID of the entity
      */
-//    public void deleteWasteCategory(Long id){
-//        WasteCategoryRepository.deleteById(id);
-//    }
+    public void deleteWasteCategory(Long id){
+        if(wasteCategoryRepository.existsById(id)){
+            wasteCategoryRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("WasteCategory not found with ID: " + id);
+        }
+    }
 
 }

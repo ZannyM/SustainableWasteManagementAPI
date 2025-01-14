@@ -13,4 +13,11 @@ public interface WasteCategoryRepository extends JpaRepository<WasteCategory, Lo
     //query methods implemented here
     List<WasteCategory> findByType(String type);
 
+    //Finf wastecategory by name
+    List<WasteCategory> findByName(String namevalue);
 }
+
+
+
+
+

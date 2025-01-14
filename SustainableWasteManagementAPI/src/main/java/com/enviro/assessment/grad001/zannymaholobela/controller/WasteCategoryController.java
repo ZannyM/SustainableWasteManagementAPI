@@ -22,5 +22,5 @@ public class WasteCategoryController {
 //    @PostMapping
 //    public WasteCategory addCategory(@RequestBody WasteCategory category){
 //        return WasteCategoryService.saveCategory(category);
-   // }
+//    }
 }

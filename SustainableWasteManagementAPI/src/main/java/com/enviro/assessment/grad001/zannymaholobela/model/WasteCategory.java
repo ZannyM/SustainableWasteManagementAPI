@@ -19,6 +19,13 @@ public class WasteCategory {
     @NotNull
     private String description;
 
+    @NotNull
+    private String type; //repository query
+    //default constructor (required by JPA)
+    public WasteCategory(){
+
+    }
+
     //Getters
     public Long getId(){
         return id;
@@ -31,6 +38,11 @@ public class WasteCategory {
     public String getDescription(){
         return description;
     }
+
+    public String getType(){
+        return type;
+    }
+
     //Setters
 
     public void setId(Long id){
@@ -38,12 +50,16 @@ public class WasteCategory {
     }
 
     public void setName(String name){
+
         this.name = name;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 
+    public void setType(String type){
+        this.type = type;
+    }
 
 }
