@@ -1,17 +1,19 @@
 package com.enviro.assessment.grad001.zannymaholobela.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "waste_category")
 public class WasteCategory {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //use auto increment to update each row
 
     private Long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Name is mandantory")
     private String name;
 
     @Column(nullable = false)

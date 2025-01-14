@@ -48,7 +48,7 @@ public class WasteCategoryService {
     }
 
     //Find waste category by type
-    public List<WasteCategory> getCategoriesByName(String name){
+    public Optional<WasteCategory> getCategoriesByName(String name){
         return wasteCategoryRepository.findByName(name);
     }
     /**

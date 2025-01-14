@@ -2,6 +2,7 @@ package com.enviro.assessment.grad001.zannymaholobela.controller;
 
 import com.enviro.assessment.grad001.zannymaholobela.exception.ResourceNotFoundException;
 import com.enviro.assessment.grad001.zannymaholobela.model.WasteCategory;
+import com.enviro.assessment.grad001.zannymaholobela.repository.WasteCategoryRepository;
 import com.enviro.assessment.grad001.zannymaholobela.service.WasteCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
@@ -21,6 +22,10 @@ import java.util.Optional;
 public class WasteCategoryController {
 
     private final WasteCategoryService wasteCategoryService;
+
+    @Autowired
+    private WasteCategoryRepository wasteCategoryRepository;  // Inject the repository
+
     //constructor parameter
     @Autowired
     public WasteCategoryController(WasteCategoryService wasteCategoryService) {
@@ -41,9 +46,19 @@ public class WasteCategoryController {
     }
     // Create a new WasteCategory
     @PostMapping
-    public ResponseEntity<WasteCategory> createCategory(@Validated @RequestBody WasteCategory wasteCategory) {
+    public ResponseEntity<?> createCategory(@Validated @RequestBody WasteCategory wasteCategory) {
+        // Ensure that the id is not passed in the request body
+        wasteCategory.setId(null); // Ensure the id is null for new records
+
+        // Check if a category with the same name already exists
+        Optional<WasteCategory> existingCategory = wasteCategoryRepository.findByName(wasteCategory.getName());
+        if (existingCategory.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Category with the same name already exists.");
+        }
+
         WasteCategory savedCategory = wasteCategoryService.saveCategory(wasteCategory);
-        return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
+//        return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
     }
 
     // Update an existing WasteCategory
