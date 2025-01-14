@@ -17,7 +17,7 @@ import java.util.Optional;
  * REST Controller for managing WasteCategory.
  */
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/waste-categories")
 public class WasteCategoryController {
 
     private final WasteCategoryService wasteCategoryService;

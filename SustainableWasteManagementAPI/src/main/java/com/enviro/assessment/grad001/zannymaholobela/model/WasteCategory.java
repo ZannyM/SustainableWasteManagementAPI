@@ -1,26 +1,23 @@
 package com.enviro.assessment.grad001.zannymaholobela.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "waste_category")
 public class WasteCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private String name;
 
-    @NotNull
+    @Column(nullable = false)
     private String description;
 
-//    @NotNull
-//    private String type; //repository query
+
     //default constructor (required by JPA)
     public WasteCategory(){
 
@@ -39,10 +36,6 @@ public class WasteCategory {
         return description;
     }
 
-//    public String getType(){
-//        return type;
-//    }
-
     //Setters
 
     public void setId(Long id){
@@ -58,8 +51,5 @@ public class WasteCategory {
         this.description = description;
     }
 
-//    public void setType(String type){
-//        this.type = type;
-//    }
 
 }
