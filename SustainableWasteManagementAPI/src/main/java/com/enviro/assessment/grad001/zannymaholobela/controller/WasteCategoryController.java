@@ -60,8 +60,5 @@ public class WasteCategoryController {
         wasteCategoryService.deleteWasteCategory(id);
         return ResponseEntity.noContent().build();
     }
-//    @PostMapping
-//    public WasteCategory addCategory(@RequestBody WasteCategory category){
-//        return WasteCategoryService.saveCategory(category);
-//    }
+
 }

@@ -19,8 +19,8 @@ public class WasteCategory {
     @NotNull
     private String description;
 
-    @NotNull
-    private String type; //repository query
+//    @NotNull
+//    private String type; //repository query
     //default constructor (required by JPA)
     public WasteCategory(){
 
@@ -39,9 +39,9 @@ public class WasteCategory {
         return description;
     }
 
-    public String getType(){
-        return type;
-    }
+//    public String getType(){
+//        return type;
+//    }
 
     //Setters
 
@@ -58,8 +58,8 @@ public class WasteCategory {
         this.description = description;
     }
 
-    public void setType(String type){
-        this.type = type;
-    }
+//    public void setType(String type){
+//        this.type = type;
+//    }
 
 }

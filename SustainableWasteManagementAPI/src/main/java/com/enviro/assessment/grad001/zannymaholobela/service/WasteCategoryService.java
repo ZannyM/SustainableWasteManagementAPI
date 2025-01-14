@@ -48,8 +48,8 @@ public class WasteCategoryService {
     }
 
     //Find waste category by type
-    public List<WasteCategory> getCategoriesByType(String type){
-        return wasteCategoryRepository.findByType(type);
+    public List<WasteCategory> getCategoriesByName(String name){
+        return wasteCategoryRepository.findByName(name);
     }
     /**
      * Update a WasteCategory.
@@ -62,7 +62,8 @@ public class WasteCategoryService {
         return Optional.ofNullable(wasteCategoryRepository.findById(id).map(existingCategory -> {
             existingCategory.setName(updatedWasteCategory.getName());
             existingCategory.setDescription(updatedWasteCategory.getDescription());
-            existingCategory.setType(updatedWasteCategory.getType());
+//            existingCategory.setType(updatedWasteCategory.getType());
+            existingCategory.setName(updatedWasteCategory.getName());
             return wasteCategoryRepository.save(existingCategory);
         }).orElseThrow(() -> new RuntimeException("WasteCategory not found with ID: " + id)));
     }

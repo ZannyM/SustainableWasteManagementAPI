@@ -10,8 +10,8 @@ import java.util.List;
  */
 @Repository
 public interface WasteCategoryRepository extends JpaRepository<WasteCategory, Long> {
-    //query methods implemented here
-    List<WasteCategory> findByType(String type);
+//    //query methods implemented here
+//    List<WasteCategory> findByType(String type);
 
     //Finf wastecategory by name
     List<WasteCategory> findByName(String namevalue);
