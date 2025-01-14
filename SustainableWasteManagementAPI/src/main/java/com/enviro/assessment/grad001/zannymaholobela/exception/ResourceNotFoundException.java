@@ -4,5 +4,6 @@ package com.enviro.assessment.grad001.zannymaholobela.exception;
  */
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String s) {
+        super(s);  //message
     }
 }
