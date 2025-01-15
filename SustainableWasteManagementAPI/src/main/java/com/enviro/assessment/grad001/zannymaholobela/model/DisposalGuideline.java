@@ -1,6 +1,9 @@
 package com.enviro.assessment.grad001.zannymaholobela.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "disposal_guideline")
@@ -10,15 +13,20 @@ public class DisposalGuideline {
     private Long id;
 
     @Column(name = "waste_type", nullable = false)
+    @NotBlank(message = "Waste type cannot be blank")
+    @Size(min = 2, max = 100, message = "Waste type must be between 2 and 100 characters")
     private String wasteType;
 
     @Column(name = "disposal_method", nullable = false)
+    @NotBlank(message = "Disposal method cannot be blank")
     private String disposalMethod;
 
     @Column(name = "instructions", nullable = false)
+    @NotBlank(message = "Instructions cannot be blank")
     private String instructions;
 
     @Column(name = "hazardous", nullable = false)
+    @NotNull(message = "Hazardous field must be specified")
     private Boolean hazardous;
 
     // Getters and Setters
