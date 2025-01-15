@@ -16,6 +16,8 @@ CREATE TABLE recycling_tip (
 --disposal guideline table schema
 CREATE TABLE disposal_guideline (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    category VARCHAR(255) NOT NULL,
-    guideline VARCHAR(255) NOT NULL
+    waste_type VARCHAR(255) NOT NULL,
+    disposal_method VARCHAR(255) NOT NULL,
+    instructions VARCHAR(255) NOT NULL,
+    hazardous BOOLEAN NOT NULL
 );

@@ -50,15 +50,19 @@ INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category
 INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Medical'), 'Place sharps in a puncture-proof container before disposal.');
 
 -- Disposal Guidelines
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Plastic', 'Dispose plastics in designated recycling bins.');
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Organic', 'Place organic waste in a compost bin or donate to local composting facilities.');
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Electronic', 'Dispose of electronics at e-waste recycling centers.');
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Metal', 'Take scrap metal to a recycling yard.');
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Glass', 'Recycle glass in appropriate glass recycling containers.');
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Paper', 'Place paper products in paper recycling bins.');
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Textile', 'Donate usable textiles to charities or recycle.');
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Hazardous', 'Take hazardous waste to specialized disposal facilities.');
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Construction', 'Dispose of construction debris at designated facilities.');
-INSERT INTO disposal_guideline (category, guideline) VALUES ('Medical', 'Dispose of medical waste through approved medical waste disposal services.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Plastic', 'Dispose plastics in designated recycling bins.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Organic', 'Place organic waste in a compost bin or donate to local composting facilities.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Electronic', 'Dispose of electronics at e-waste recycling centers.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Metal', 'Take scrap metal to a recycling yard.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Glass', 'Recycle glass in appropriate glass recycling containers.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Paper', 'Place paper products in paper recycling bins.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Textile', 'Donate usable textiles to charities or recycle.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Hazardous', 'Take hazardous waste to specialized disposal facilities.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Construction', 'Dispose of construction debris at designated facilities.');
+--INSERT INTO disposal_guideline (category, guideline) VALUES ('Medical', 'Dispose of medical waste through approved medical waste disposal services.');
+--
 
-
+INSERT INTO disposal_guideline (waste_type, disposal_method, instructions, hazardous)
+VALUES
+('Paper', 'Recycling', 'Collect paper in a separate bin. Ensure it is clean and dry.', false),
+('Batteries', 'Hazardous Waste Collection', 'Dispose of batteries at designated hazardous waste collection points.', true);

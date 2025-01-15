@@ -19,14 +19,14 @@ public class DisposalGuidelineController {
     }
 
     // Get all disposal guidelines
-    @GetMapping("/disposal-guideline")
+    @GetMapping("/disposal-guidelines")
     public ResponseEntity<List<DisposalGuideline>> getAllDisposalGuidelines() {
         List<DisposalGuideline> guidelines = disposalGuidelineService.getAllDisposalGuidelines();
         return ResponseEntity.ok(guidelines);
     }
 
     // Get a specific disposal guideline by ID
-    @GetMapping("/disposal-guideline/{id}")
+    @GetMapping("/disposal-guidelines/{id}")
     public ResponseEntity<DisposalGuideline> getDisposalGuidelineById(@PathVariable Long id) {
         DisposalGuideline guideline = disposalGuidelineService.getDisposalGuidelineById(id);
         return ResponseEntity.ok(guideline);
