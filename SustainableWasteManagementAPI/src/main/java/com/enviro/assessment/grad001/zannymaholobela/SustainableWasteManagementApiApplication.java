@@ -14,6 +14,3 @@ public class SustainableWasteManagementApiApplication {
 }
 
 
-// curl -X POST -H "Content-Type: application/json" -d '{"name": "Plastic", "description": "Non-biodegradable waste"}'
-// http://localhost:8080/api/waste-categories
-// mvn spring-boot:run
