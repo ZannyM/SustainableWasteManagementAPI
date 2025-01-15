@@ -82,4 +82,9 @@ public class WasteCategoryService {
         }
     }
 
+    public void createWasteCategory(WasteCategory wasteCategory) {
+        wasteCategoryRepository.save(wasteCategory);
+
+    }
+
 }
