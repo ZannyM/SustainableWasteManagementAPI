@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class RecyclingTipService {
@@ -42,7 +43,7 @@ public class RecyclingTipService {
     public RecyclingTip updateRecyclingTip(Long id, RecyclingTip updatedTip) {
         return recyclingTipRepository.findById(id)
                 .map(existingTip -> {
-                    existingTip.setCategory(updatedTip.getCategory());
+                    existingTip.setCategoryId(updatedTip.getCategoryId());
                     existingTip.setRecyclingTips(updatedTip.getTip());
                     return recyclingTipRepository.save(existingTip);
                 }).orElseThrow(() -> new RuntimeException("RecyclingTip not found with ID: " + id));
@@ -53,6 +54,18 @@ public class RecyclingTipService {
             recyclingTipRepository.deleteById(id);
         } else {
             throw new RuntimeException("RecyclingTip not found with ID: " + id);
+        }
+    }
+
+    // Get a random recycling tip
+    public RecyclingTip getRandomRecyclingTip() {
+        List<RecyclingTip> allTips = recyclingTipRepository.findAll();
+        if (!allTips.isEmpty()) {
+            Random random = new Random();
+            int randomIndex = random.nextInt(allTips.size());
+            return allTips.get(randomIndex);
+        } else {
+            throw new RuntimeException("No recycling tips available.");
         }
     }
 }

@@ -8,9 +8,9 @@ CREATE TABLE waste_category (
 --recycling tip table schema
 CREATE TABLE recycling_tip (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    category BIGINT NOT NULL,              -- Changed to BIGINT to match waste_category id
+    category_id BIGINT NOT NULL,              -- Changed to BIGINT to match waste_category id
     tip VARCHAR(255) NOT NULL,             -- Changed from recycling_tip to tip
-    FOREIGN KEY (category) REFERENCES waste_category(id)  -- Added foreign key constraint
+    FOREIGN KEY (category_id) REFERENCES waste_category(id)  -- Added foreign key constraint
 );
 
 --disposal guideline table schema

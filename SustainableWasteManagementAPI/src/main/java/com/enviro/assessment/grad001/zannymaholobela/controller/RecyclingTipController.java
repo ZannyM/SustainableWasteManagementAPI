@@ -1,7 +1,10 @@
 package com.enviro.assessment.grad001.zannymaholobela.controller;
 
 import com.enviro.assessment.grad001.zannymaholobela.model.RecyclingTip;
+import com.enviro.assessment.grad001.zannymaholobela.model.WasteCategory;
+import com.enviro.assessment.grad001.zannymaholobela.repository.WasteCategoryRepository;
 import com.enviro.assessment.grad001.zannymaholobela.service.RecyclingTipService;
+import com.enviro.assessment.grad001.zannymaholobela.service.WasteCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +19,28 @@ public class RecyclingTipController {
 
     private final RecyclingTipService recyclingTipService;
 
+    private final WasteCategoryService wasteCategoryService;
+
     @Autowired
-    public RecyclingTipController(RecyclingTipService recyclingTipService) {
+    private WasteCategoryRepository wasteCategoryRepository;  // Inject the repository
+
+
+    @Autowired
+    public RecyclingTipController(RecyclingTipService recyclingTipService, WasteCategoryService wasteCategoryService) {
         this.recyclingTipService = recyclingTipService;
+        this.wasteCategoryService = wasteCategoryService;
     }
 
     // Get all recycling tips
     @GetMapping
     public ResponseEntity<List<RecyclingTip>> getAllRecyclingTips() {
         List<RecyclingTip> tips = recyclingTipService.getAllRecyclingTips();
+        for(RecyclingTip tip : tips){
+            Long categoryId = tip.getCategoryId();
+            Optional<WasteCategory> wasteCategory = wasteCategoryService.getWasteCategoryById(categoryId);
+            wasteCategory.ifPresent(category -> tip.setCategoryName(category.getName()));
+
+        }
         return new ResponseEntity<>(tips, HttpStatus.OK);
     }
 
@@ -61,6 +77,16 @@ public class RecyclingTipController {
         try {
             recyclingTipService.deleteRecyclingTip(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    // Get a random recycling tip
+    @GetMapping("/random")
+    public ResponseEntity<RecyclingTip> getRandomRecyclingTip() {
+        try {
+            RecyclingTip randomTip = recyclingTipService.getRandomRecyclingTip();
+            return new ResponseEntity<>(randomTip, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
