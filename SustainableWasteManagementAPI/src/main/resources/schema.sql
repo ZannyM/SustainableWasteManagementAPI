@@ -11,3 +11,12 @@ CREATE TABLE recycling_tip (
     category VARCHAR(255) NOT NULL,
     recycling_tip VARCHAR(255) NOT NULL
 );
+
+--disposal guideline table schema
+CREATE TABLE disposal_guideline (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(255) NOT NULL,
+    guideline VARCHAR(255) NOT NULL
+);
+
+
