@@ -6,22 +6,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RecyclingTipService {
 
     private final RecyclingTipRepository recyclingTipRepository;
 
+    // Constructor
     @Autowired
     public RecyclingTipService(RecyclingTipRepository recyclingTipRepository) {
         this.recyclingTipRepository = recyclingTipRepository;
     }
 
-    public List<RecyclingTip> getAllRecyclingTips(){
+    // Get all recycling tips
+    public List<RecyclingTip> getAllRecyclingTips() {
         return recyclingTipRepository.findAll();
     }
 
-    public RecyclingTip getRecyclingTipById(Long id){
-        return recyclingTipRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Recycling tip not found for ID: " + id));
+    // Get recycling tip by ID
+    public Optional<RecyclingTip> getRecyclingTipById(Long id) {
+        return recyclingTipRepository.findById(id);
+    }
+
+    /**
+     * Save a RecyclingTip.
+     *
+     * @param recyclingTip the entity to save
+     * @return the persisted entity
+     */
+    public RecyclingTip saveRecyclingTip(RecyclingTip recyclingTip) {
+        return recyclingTipRepository.save(recyclingTip); // Correct usage
+    }
+
+    public RecyclingTip updateRecyclingTip(Long id, RecyclingTip updatedTip) {
+        return recyclingTipRepository.findById(id)
+                .map(existingTip -> {
+                    existingTip.setCategory(updatedTip.getCategory());
+                    existingTip.setRecyclingTips(updatedTip.getTip());
+                    return recyclingTipRepository.save(existingTip);
+                }).orElseThrow(() -> new RuntimeException("RecyclingTip not found with ID: " + id));
+    }
+
+    public void deleteRecyclingTip(Long id) {
+        if (recyclingTipRepository.existsById(id)) {
+            recyclingTipRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("RecyclingTip not found with ID: " + id);
+        }
     }
 }

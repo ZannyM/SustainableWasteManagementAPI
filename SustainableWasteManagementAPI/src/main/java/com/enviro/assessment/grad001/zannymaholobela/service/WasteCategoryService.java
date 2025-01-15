@@ -29,15 +29,6 @@ public class WasteCategoryService {
         return wasteCategoryRepository.findAll();
     }
     /**
-     * Save a WasteCategory.
-     *
-     * @param category the entity to save
-     * @return the persisted entity
-     */
-    public WasteCategory saveCategory(WasteCategory category){
-        return wasteCategoryRepository.save(category);
-    }
-    /**
      * Find one WasteCategory by ID.
      *
      * @param id the ID of the entity
@@ -46,6 +37,17 @@ public class WasteCategoryService {
     public Optional<WasteCategory> getWasteCategoryById(Long id){
         return wasteCategoryRepository.findById(id);
     }
+    /**
+     * Save a WasteCategory.
+     *
+     * @param category the entity to save
+     * @return the persisted entity
+     */
+    public WasteCategory saveCategory(WasteCategory category){
+        return wasteCategoryRepository.save(category);
+    }
+
+
 
     //Find waste category by type
     public Optional<WasteCategory> getCategoriesByName(String name){

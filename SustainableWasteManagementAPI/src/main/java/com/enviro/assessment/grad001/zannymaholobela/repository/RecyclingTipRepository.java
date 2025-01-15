@@ -9,6 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RecyclingTipRepository extends JpaRepository<RecyclingTip, Long> {
-    //query methods added here
 
 }
