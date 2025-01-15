@@ -1,22 +1,20 @@
 package com.enviro.assessment.grad001.zannymaholobela.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "disposal_guideline")
 public class DisposalGuideline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private String name;
+    @Column(nullable = false)
+    private String category;
 
-    @NotNull
-    private String description;
+    @Column(nullable = false)
+    private String guideline;
 
     //Getters
 
@@ -24,12 +22,11 @@ public class DisposalGuideline {
         return id;
     }
 
-    public String getName(){
-        return name;
+    public String getCategory(){
+        return category;
     }
-
-    public String getDescription(){
-        return description;
+    public String getGuideline(){
+        return guideline;
     }
     //Setters
 
@@ -37,11 +34,11 @@ public class DisposalGuideline {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategory(String category){
+        this.category = category;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setGuideline(String guideline){
+        this.guideline = guideline;
     }
 }
