@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/recycling-tips")
+@RequestMapping("/api")
 public class RecyclingTipController {
     private final RecyclingTipService recyclingTipService;
 
@@ -18,10 +20,18 @@ public class RecyclingTipController {
     public RecyclingTipController(RecyclingTipService recyclingTipService) {
         this.recyclingTipService = recyclingTipService;
     }
+    //Get all recycling tips
+    @GetMapping("/recycling-tip")
+    public ResponseEntity<List<RecyclingTip>> getAllRecyclingTips(){
+        List<RecyclingTip> tips = recyclingTipService.getAllRecyclingTips();
+        return ResponseEntity.ok(tips);
+    }
 
-    @GetMapping("/{id}")
+    //Get a specific recycling tip by ID
+    @GetMapping("/recycling-tip/{id}")
     public ResponseEntity<RecyclingTip> getRecyclingTipById(@PathVariable Long id){
         RecyclingTip recyclingTip = recyclingTipService.getRecyclingTipById(id);
         return ResponseEntity.ok(recyclingTip);
     }
+
 }

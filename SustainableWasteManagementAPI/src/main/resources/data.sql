@@ -37,6 +37,18 @@ INSERT INTO waste_category (name, description) VALUES ('Hazardous', 'Chemical or
 INSERT INTO waste_category (name, description) VALUES ('Construction', 'Debris from construction projects.');
 INSERT INTO waste_category (name, description) VALUES ('Medical', 'Used medical equipment and waste.');
 
+-- Insert into recycling_tip using the IDs of the waste categories
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Plastic'), 'Clean and sort plastics before recycling.');
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Organic'), 'Compost organic waste at home or in community compost bins.');
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Electronic'), 'Remove personal data before recycling electronics.');
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Metal'), 'Rinse food cans before recycling to avoid contamination.');
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Glass'), 'Separate glass by color if required by your local recycler.');
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Paper'), 'Avoid recycling wet or greasy paper.');
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Textile'), 'Repair or repurpose old clothes before recycling.');
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Hazardous'), 'Seal hazardous materials tightly before disposal.');
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Construction'), 'Reuse materials like bricks and wood if possible.');
+INSERT INTO recycling_tip (category, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Medical'), 'Place sharps in a puncture-proof container before disposal.');
+
 -- Disposal Guidelines
 INSERT INTO disposal_guideline (category, guideline) VALUES ('Plastic', 'Dispose plastics in designated recycling bins.');
 INSERT INTO disposal_guideline (category, guideline) VALUES ('Organic', 'Place organic waste in a compost bin or donate to local composting facilities.');
@@ -49,14 +61,4 @@ INSERT INTO disposal_guideline (category, guideline) VALUES ('Hazardous', 'Take 
 INSERT INTO disposal_guideline (category, guideline) VALUES ('Construction', 'Dispose of construction debris at designated facilities.');
 INSERT INTO disposal_guideline (category, guideline) VALUES ('Medical', 'Dispose of medical waste through approved medical waste disposal services.');
 
--- Recycling Tips
-INSERT INTO recycling_tip (category, tip) VALUES ('Plastic', 'Clean and sort plastics before recycling.');
-INSERT INTO recycling_tip (category, tip) VALUES ('Organic', 'Compost organic waste at home or in community compost bins.');
-INSERT INTO recycling_tip (category, tip) VALUES ('Electronic', 'Remove personal data before recycling electronics.');
-INSERT INTO recycling_tip (category, tip) VALUES ('Metal', 'Rinse food cans before recycling to avoid contamination.');
-INSERT INTO recycling_tip (category, tip) VALUES ('Glass', 'Separate glass by color if required by your local recycler.');
-INSERT INTO recycling_tip (category, tip) VALUES ('Paper', 'Avoid recycling wet or greasy paper.');
-INSERT INTO recycling_tip (category, tip) VALUES ('Textile', 'Repair or repurpose old clothes before recycling.');
-INSERT INTO recycling_tip (category, tip) VALUES ('Hazardous', 'Seal hazardous materials tightly before disposal.');
-INSERT INTO recycling_tip (category, tip) VALUES ('Construction', 'Reuse materials like bricks and wood if possible.');
-INSERT INTO recycling_tip (category, tip) VALUES ('Medical', 'Place sharps in a puncture-proof container before disposal.');
+

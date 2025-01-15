@@ -10,11 +10,12 @@ public class RecyclingTip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String category;
+    @Column(name = "category")
+    private long category;
 
-    @Column(nullable = false)
-    private String recyclingTips;
+//    @Column(name = "recycling_tips", nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'default value'")
+    @Column(name = "tip")
+    private String tip;
 
     //Getters
 
@@ -22,12 +23,12 @@ public class RecyclingTip {
         return id;
     }
 
-    public String getCategory(){
+    public Long getCategory(){
         return category;
     }
 
-    public String getRecyclingTips(){
-        return recyclingTips;
+    public String getTip(){
+        return tip;
     }
     //Setters
 
@@ -35,11 +36,11 @@ public class RecyclingTip {
         this.id = id;
     }
 
-    public void setCategory(String category){
+    public void setCategory(Long category){
         this.category = category;
     }
 
-    public void setRecyclingTips(String recyclingTips){
-        this.recyclingTips = recyclingTips;
+    public void setRecyclingTips(String tip){
+        this.tip = tip;
     }
 }

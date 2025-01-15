@@ -5,13 +5,20 @@ import com.enviro.assessment.grad001.zannymaholobela.repository.RecyclingTipRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RecyclingTipService {
+
     private final RecyclingTipRepository recyclingTipRepository;
 
     @Autowired
     public RecyclingTipService(RecyclingTipRepository recyclingTipRepository) {
         this.recyclingTipRepository = recyclingTipRepository;
+    }
+
+    public List<RecyclingTip> getAllRecyclingTips(){
+        return recyclingTipRepository.findAll();
     }
 
     public RecyclingTip getRecyclingTipById(Long id){
