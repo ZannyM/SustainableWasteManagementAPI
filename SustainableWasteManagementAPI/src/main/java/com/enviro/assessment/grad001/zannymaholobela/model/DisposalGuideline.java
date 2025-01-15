@@ -5,6 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * This class represents a Disposal Guideline entity in the database.
+ * A Disposal Guideline provides information on how to properly dispose of a specific waste type.
+ */
 @Entity
 @Table(name = "disposal_guideline")
 public class DisposalGuideline {

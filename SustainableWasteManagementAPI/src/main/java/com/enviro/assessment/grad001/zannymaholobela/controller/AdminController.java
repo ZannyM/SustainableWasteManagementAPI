@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+/**
+ * This controller class handles administrative operations for waste categories,
+ * such as creating, updating, and deleting categories.
+ * It is intended for use by administrators only.
+ */
 @RestController
 @RequestMapping("/api/admin/waste-categories")
 public class AdminController {
@@ -18,7 +22,12 @@ public class AdminController {
     public AdminController(WasteCategoryService wasteCategoryService) {
         this.wasteCategoryService = wasteCategoryService;
     }
-
+    /**
+     * Creates a new waste category.
+     *
+     * @param wasteCategory The waste category object to be created.
+     * @return A ResponseEntity with a success message and HTTP status CREATED.
+     */
     // POST: Create a new waste category
     @PostMapping
     public ResponseEntity<ResponseMessage> createWasteCategory(@RequestBody WasteCategory wasteCategory) {
@@ -36,7 +45,12 @@ public class AdminController {
             return new ResponseEntity<>(createResponse("Waste category not found"), HttpStatus.NOT_FOUND);
         }
     }
-
+    /**
+     * Deletes an existing waste category.
+     *
+     * @param id The ID of the waste category to be deleted.
+     * @return A ResponseEntity with a success or error message and the appropriate HTTP status code.
+     */
     // DELETE: Delete a waste category
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseMessage> deleteWasteCategory(@PathVariable Long id) {

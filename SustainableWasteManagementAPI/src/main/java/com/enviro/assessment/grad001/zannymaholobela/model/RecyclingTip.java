@@ -6,6 +6,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * This class represents a Recycling Tip entity in the database.
+ * A Recycling Tip provides information on how to best recycle a specific waste type.
+ */
 @Entity
 @Table(name = "recycling_tip")
 public class RecyclingTip {
