@@ -5,6 +5,8 @@ import com.enviro.assessment.grad001.zannymaholobela.repository.DisposalGuidelin
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DisposalGuidelineService {
 
@@ -15,7 +17,12 @@ public class DisposalGuidelineService {
         this.disposalGuidelineRepository = disposalGuidelineRepository;
     }
 
+    public List<DisposalGuideline> getAllDisposalGuidelines(){
+        return disposalGuidelineRepository.findAll();
+    }
+
     public DisposalGuideline getDisposalGuidelineById(Long id){
         return disposalGuidelineRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Disposal guideline not found for ID: " + id));
     }
+
 }

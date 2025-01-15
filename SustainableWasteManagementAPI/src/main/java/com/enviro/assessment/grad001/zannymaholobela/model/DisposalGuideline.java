@@ -10,10 +10,10 @@ public class DisposalGuideline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "category")
     private String category;
 
-    @Column(nullable = false)
+    @Column(name = "guideline")
     private String guideline;
 
     //Getters
@@ -39,6 +39,6 @@ public class DisposalGuideline {
     }
 
     public void setGuideline(String guideline){
-        this.guideline = guideline;
+            this.guideline = guideline;
     }
 }
