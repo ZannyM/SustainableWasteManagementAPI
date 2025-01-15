@@ -42,8 +42,5 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.badRequest().body(errors);
     }
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<String> handleException(Exception e){
-//        return ResponseEntity.internalServerError().body("An error occurred: " + e.getMessage());
-//    }
+
 }

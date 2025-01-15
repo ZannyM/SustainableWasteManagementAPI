@@ -1,7 +1,6 @@
 package com.enviro.assessment.grad001.zannymaholobela.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "disposal_guideline")
@@ -10,35 +9,56 @@ public class DisposalGuideline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "category")
-    private String category;
+    @Column(name = "waste_type", nullable = false)
+    private String wasteType;
 
-    @Column(name = "guideline")
-    private String guideline;
+    @Column(name = "disposal_method", nullable = false)
+    private String disposalMethod;
 
-    //Getters
+    @Column(name = "instructions", nullable = false)
+    private String instructions;
 
-    public Long getId(){
+    @Column(name = "hazardous", nullable = false)
+    private Boolean hazardous;
+
+    // Getters and Setters
+    public Long getId() {
         return id;
     }
-
-    public String getCategory(){
-        return category;
-    }
-    public String getGuideline(){
-        return guideline;
-    }
-    //Setters
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setCategory(String category){
-        this.category = category;
+    public String getWasteType() {
+        return wasteType;
     }
 
-    public void setGuideline(String guideline){
-            this.guideline = guideline;
+    public void setWasteType(String wasteType) {
+        this.wasteType = wasteType;
+    }
+
+    public String getDisposalMethod() {
+        return disposalMethod;
+    }
+
+    public void setDisposalMethod(String disposalMethod) {
+        this.disposalMethod = disposalMethod;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public Boolean getHazardous() {
+        return hazardous;
+    }
+
+    public void setHazardous(Boolean hazardous) {
+        this.hazardous = hazardous;
     }
 }
