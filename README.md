@@ -38,7 +38,6 @@ The project includes features for managing waste categories and recycling tips, 
 - Postman: API testing.
 
 ## Installation and Setup
-
 ### Prerequisites
 
 - Java 17 or higher.
@@ -49,7 +48,8 @@ The project includes features for managing waste categories and recycling tips, 
 Clone the Repository:
 
     git clone https://github.com/your-repo/waste-management-app.git
-    cd waste-management-app
+    cd \SustainableWasteManagementAPI\src\main\java\com\enviro\assessment\grad001\zannymaholobela> 
+    run SustainableWasteManagementApiApplication.java
 
 Build the Project:
 
