@@ -47,8 +47,6 @@ public class WasteCategoryService {
         return wasteCategoryRepository.save(category);
     }
 
-
-
     //Find waste category by type
     public Optional<WasteCategory> getCategoriesByName(String name){
         return wasteCategoryRepository.findByName(name);
