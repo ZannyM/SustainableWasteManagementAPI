@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * REST Controller for managing DisposalGuideline.
+ */
 @RestController
 @RequestMapping("/api/disposal-guidelines")
 public class DisposalGuidelineController {
