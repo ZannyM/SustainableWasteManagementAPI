@@ -22,8 +22,17 @@ INSERT INTO recycling_tip (category_id, tip) VALUES ((SELECT id FROM waste_categ
 INSERT INTO recycling_tip (category_id, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Construction'), 'Reuse materials like bricks and wood if possible.');
 INSERT INTO recycling_tip (category_id, tip) VALUES ((SELECT id FROM waste_category WHERE name = 'Medical'), 'Place sharps in a puncture-proof container before disposal.');
 
---Disposal Guidelines
+-- Insert disposal guidelines for various waste types
 INSERT INTO disposal_guideline (waste_type, disposal_method, instructions, hazardous)
 VALUES
 ('Paper', 'Recycling', 'Collect paper in a separate bin. Ensure it is clean and dry.', false),
-('Batteries', 'Hazardous Waste Collection', 'Dispose of batteries at designated hazardous waste collection points.', true);
+('Batteries', 'Hazardous Waste Collection', 'Dispose of batteries at designated hazardous waste collection points.', true),
+('Plastic', 'Recycling', 'Separate by type and remove any food residues before disposal.', false),
+('Organic', 'Composting', 'Use home or community compost bins to reduce landfill waste.', false),
+('Electronic', 'E-Waste Recycling', 'Drop off at certified e-waste recycling centers.', true),
+('Metal', 'Recycling', 'Ensure items are clean and sorted by type before recycling.', false),
+('Glass', 'Recycling', 'Sort by color if required and remove any lids or caps.', false),
+('Textile', 'Donation/Recycling', 'Donate usable items, recycle unusable fabrics.', false),
+('Hazardous', 'Specialized Disposal', 'Follow local guidelines and dispose of at authorized centers.', true),
+('Construction', 'Reuse/Recycling', 'Sort materials and reuse where possible, recycle the rest.', false),
+('Medical', 'Biohazard Disposal', 'Use designated biohazard containers for disposal.', true);
