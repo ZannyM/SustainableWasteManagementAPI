@@ -4,6 +4,19 @@
 **SustainableWasteManagementAPI**The Waste Management and Recycling Tips Application is designed to promote sustainable practices by providing users with detailed information about waste categories and recycling tips. This application helps individuals and organizations understand the best methods for managing waste and encourages the adoption of eco-friendly habits.
 
 The project includes features for managing waste categories and recycling tips, supported by a robust backend system implemented in Java using Spring Boot. It also features RESTful APIs for easy integration with front-end systems.
+
+🌍 About the Project
+The Sustainable Waste Management API is designed to help individuals and organizations adopt eco-friendly waste disposal and recycling practices.
+It provides structured information on waste categories, recycling tips, and proper disposal guidelines through RESTful APIs built with Spring Boot.
+
+🛠 Features
+✅ Waste Category Management – Add, update, retrieve, and delete waste categories.
+✅ Recycling Tips API – Get actionable insights on how to recycle different materials.
+✅ Disposal Guidelines – Retrieve best practices for safe and sustainable disposal.
+✅ Admin Panel (Secure Endpoints) – Manage waste categories and users with role-based access.
+✅ RESTful API with JSON Responses – Well-structured API responses for easy integration.
+
+
 ## Functionalities
 - Waste categories
 - Recycling tips
