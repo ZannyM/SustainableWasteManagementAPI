@@ -13,6 +13,8 @@ target/
 .springBeans
 .sts4-cache
 
+firebase-service-account.json
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
