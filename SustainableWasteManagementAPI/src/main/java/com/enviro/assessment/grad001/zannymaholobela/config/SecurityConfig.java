@@ -20,8 +20,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Allow access to static resources
+                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                         // Public endpoints - allow read access to waste categories, tips, and guidelines
                         .requestMatchers(HttpMethod.GET, "/api/waste-categories/**", "/api/recycling-tips/**", "/api/disposal-guidelines/**").permitAll()
+                        // Auth endpoints - allow public access for registration
+                        .requestMatchers("/api/auth/**").permitAll()
                         // Admin endpoints - require ADMIN role
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         // All other write operations require authentication
