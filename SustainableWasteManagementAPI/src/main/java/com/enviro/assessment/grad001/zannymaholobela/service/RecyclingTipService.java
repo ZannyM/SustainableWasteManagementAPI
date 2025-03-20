@@ -3,6 +3,8 @@ package com.enviro.assessment.grad001.zannymaholobela.service;
 import com.enviro.assessment.grad001.zannymaholobela.model.RecyclingTip;
 import com.enviro.assessment.grad001.zannymaholobela.repository.RecyclingTipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +25,13 @@ public class RecyclingTipService {
     }
 
     // Get all recycling tips
+    @Cacheable("recyclingTips")
     public List<RecyclingTip> getAllRecyclingTips() {
         return recyclingTipRepository.findAll();
     }
 
     // Get recycling tip by ID
+    @Cacheable(value = "recyclingTip", key = "#id")
     public Optional<RecyclingTip> getRecyclingTipById(Long id) {
         return recyclingTipRepository.findById(id);
     }
@@ -38,10 +42,12 @@ public class RecyclingTipService {
      * @param recyclingTip the entity to save
      * @return the persisted entity
      */
+    @CacheEvict(value = {"recyclingTips", "recyclingTip", "randomTip"}, allEntries = true)
     public RecyclingTip saveRecyclingTip(RecyclingTip recyclingTip) {
         return recyclingTipRepository.save(recyclingTip); // Correct usage
     }
 
+    @CacheEvict(value = {"recyclingTips", "recyclingTip", "randomTip"}, allEntries = true)
     public RecyclingTip updateRecyclingTip(Long id, RecyclingTip updatedTip) {
         return recyclingTipRepository.findById(id)
                 .map(existingTip -> {
@@ -51,6 +57,7 @@ public class RecyclingTipService {
                 }).orElseThrow(() -> new RuntimeException("RecyclingTip not found with ID: " + id));
     }
 
+    @CacheEvict(value = {"recyclingTips", "recyclingTip", "randomTip"}, allEntries = true)
     public void deleteRecyclingTip(Long id) {
         if (recyclingTipRepository.existsById(id)) {
             recyclingTipRepository.deleteById(id);
@@ -60,6 +67,7 @@ public class RecyclingTipService {
     }
 
     // Get a random recycling tip
+    @Cacheable("randomTip")
     public RecyclingTip getRandomRecyclingTip() {
         List<RecyclingTip> allTips = recyclingTipRepository.findAll();
         if (!allTips.isEmpty()) {
