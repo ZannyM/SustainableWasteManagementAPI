@@ -1,79 +1,60 @@
-# SustainableWasteManagementAPI
+# Sustainable Waste Management API
 
-## Overview
-**SustainableWasteManagementAPI**The Waste Management and Recycling Tips Application is designed to promote sustainable practices by providing users with detailed information about waste categories and recycling tips. This application helps individuals and organizations understand the best methods for managing waste and encourages the adoption of eco-friendly habits.
+A RESTful API for sustainable waste management, providing information on waste categories, recycling tips, and disposal guidelines.
 
-The project includes features for managing waste categories and recycling tips, supported by a robust backend system implemented in Java using Spring Boot. It also features RESTful APIs for easy integration with front-end systems.
+## Features
 
-🌍 About the Project
-The Sustainable Waste Management API is designed to help individuals and organizations adopt eco-friendly waste disposal and recycling practices.
-It provides structured information on waste categories, recycling tips, and proper disposal guidelines through RESTful APIs built with Spring Boot.
+- **Waste Categories Management**: Add, update, retrieve, and delete waste categories
+- **Recycling Tips**: Get actionable insights on how to recycle different materials
+- **Disposal Guidelines**: Retrieve best practices for safe and sustainable disposal
+- **Firebase Authentication**: Secure endpoints with Firebase Auth
+- **Role-Based Access Control**: Different access levels for users and admins
+- **Performance Optimization**:
+    - Caching 
+    - Rate limiting to prevent abuse
+- **API Documentation**: Swagger/OpenAPI documentation
+- **Monitoring**: Application health metrics and performance monitoring
 
-🛠 Features
-✅ Waste Category Management – Add, update, retrieve, and delete waste categories.
-✅ Recycling Tips API – Get actionable insights on how to recycle different materials.
-✅ Disposal Guidelines – Retrieve best practices for safe and sustainable disposal.
-✅ Admin Panel (Secure Endpoints) – Manage waste categories and users with role-based access.
-✅ RESTful API with JSON Responses – Well-structured API responses for easy integration.
-
-
-## Functionalities
-- Waste categories
-- Recycling tips
-- Disposal guidelines
-
-## Core functionalities:
-- CRUD operations for waste categories, recycling tips, and disposal guidelines.
-- Input validation to ensure data integrity.
-- Structured JSON responses.
-- Error handling mechanisms.
-
-## Tools and Technologies
-- Framework: Spring Boot
-- Database: H2 (In-memory database for development)
-- Version Control: Git, GitHub
-- IDE: IntelliJ IDEA
-- Testing: JUnit for unit testing
-- API Testing: Postman or cURL
-- Documentation: Swagger for API documentation
-
-## Testing
-
-- JUnit 5: Unit and integration testing framework.
-
-- Mockito: Mocking framework for isolating dependencies during tests.
-
-- Spring Boot Test: For comprehensive testing of Spring components.
-
-## Tools
-
-- Maven: Dependency management and build automation.
-- Postman: API testing.
-
-## Installation and Setup
 ### Prerequisites
 
-- Java 17 or higher.
-- Maven (ensure it's installed and configured).
-- Postman (optional for API testing).
+- Java 17
+- Spring Boot 3.x
+- Maven 3.6+
+- Spring Security
+- Firebase Authentication
+- H2 Database (for development)
+- Swagger/OpenAPI
+- Actuator & Micrometer (for monitoring)
+- Postman (API Testing)
 
-#### Steps to Run the Application
-Clone the Repository:
+## Getting Started
 
-    git clone https://github.com/your-repo/waste-management-app.git
-    cd \SustainableWasteManagementAPI\src\main\java\com\enviro\assessment\grad001\zannymaholobela> 
-    run SustainableWasteManagementApiApplication.java
+1. Clone the repository:
 
-Build the Project:
+        git clone https://github.com/ZannyM/SustainableWasteManagementAPI
 
-    mvn clean install
+2. Set up environment variables:
 
-Run the Application:
+        export FIREBASE_PROJECT_ID=your-project-id
+        export FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYourKey\n-----END PRIVATE KEY-----\n"
+        export FIREBASE_CLIENT_EMAIL=your-service-account-email
 
-    mvn spring-boot:run
+3. Build the project:
 
-Access the Application:
-The application will run on http://localhost:8080. Use Postman or your browser to test the API endpoints.
+        mvn clean install
+
+4. Run the application:
+
+         mvn spring-boot:run
+
+5. Access the API at:
+
+        http://localhost:8080
+
+6. Access the API documentation at:
+
+         http://localhost:8080/swagger-ui.html
+
 
 ## API Endpoints
 
@@ -121,11 +102,38 @@ The application will run on http://localhost:8080. Use Postman or your browser t
 | PUT | `/api/admin/waste-categories/{id}` | Update user information                 |
 | DELETE | `/api/admin/waste-categories/{id}` | Delete a user                           |
 
+### Authentication
+
+- `POST /api/auth/register` - Register a new user
+
+## Security
+
+- Public endpoints: GET operations on waste categories, recycling tips, and disposal guidelines
+- Protected endpoints: POST, PUT, DELETE operations (require authentication)
+- Admin endpoints: Special operations for administrators
+
+## Monitoring
+
+- Application health: `http://localhost:8080/actuator/health`
+- Metrics: `http://localhost:8080/actuator/metrics`
+- Prometheus metrics: `http://localhost:8080/actuator/prometheus`
+
+## Testing
+
+- JUnit 5: Unit and integration testing framework.
+
+- Mockito: Mocking framework for isolating dependencies during tests.
+
+- Spring Boot Test: For comprehensive testing of Spring components.
+
 ### Running Tests
 
 Run Unit and Integration Tests:
 
         mvn test
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ### Contributors
 
