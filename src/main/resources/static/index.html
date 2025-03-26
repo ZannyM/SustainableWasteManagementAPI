@@ -2,8 +2,6 @@
 <html>
 <head>
     <title>Sustainable Waste Management API</title>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,158 +37,103 @@
     </style>
 </head>
 <body>
-    <h1>Sustainable Waste Management API</h1>
+<h1>Sustainable Waste Management API</h1>
 
-    <div id="login-container" class="container">
-        <h2>Authentication</h2>
-        <div id="login-form">
-            <h3>Login / Register</h3>
-            <input type="email" id="email" placeholder="Email">
-            <input type="password" id="password" placeholder="Password">
-            <input type="text" id="display-name" placeholder="Display Name (for registration)">
-            <button onclick="login()">Login</button>
-            <button onclick="register()">Register</button>
-        </div>
-
-        <div id="user-info" class="hidden">
-            <h3>Welcome <span id="user-name"></span></h3>
-            <p>User ID: <span id="user-id"></span></p>
-            <button onclick="logout()">Logout</button>
-        </div>
+<div class="container">
+    <h2>Authentication</h2>
+    <div id="login-form">
+        <h3>Login</h3>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
     </div>
 
-    <div id="api-test" class="container hidden">
-        <h2>API Testing</h2>
-        <button onclick="fetchWasteCategories()">Fetch Waste Categories</button>
-        <button onclick="createWasteCategory()">Create Waste Category (Auth Required)</button>
-        <div id="result" style="margin-top: 20px; white-space: pre-wrap;"></div>
+    <div id="user-info" class="hidden">
+        <h3>Welcome <span id="user-name"></span></h3>
+        <button onclick="logout()">Logout</button>
     </div>
+</div>
 
-    <script>
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_FIREBASE_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+<div id="api-test" class="container">
+    <h2>API Testing</h2>
+    <button onclick="fetchWasteCategories()">Fetch Waste Categories</button>
+    <button onclick="createWasteCategory()">Create Waste Category (Auth Required)</button>
+    <div id="result" style="margin-top: 20px; white-space: pre-wrap;"></div>
+</div>
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+<div class="container">
+    <h2>API Documentation</h2>
+    <p>Explore the API using Swagger UI:</p>
+    <a href="/swagger-ui.html" target="_blank">Open Swagger UI</a>
+</div>
 
-        // Check auth state
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                // User is signed in
-                document.getElementById('login-form').classList.add('hidden');
-                document.getElementById('user-info').classList.remove('hidden');
-                document.getElementById('api-test').classList.remove('hidden');
-                document.getElementById('user-name').textContent = user.displayName || user.email;
-                document.getElementById('user-id').textContent = user.uid;
+<script>
+    let currentUser = null;
 
-                // Get ID token for API calls
-                user.getIdToken().then(function(idToken) {
-                    localStorage.setItem('authToken', idToken);
-                });
+    // Check if user is logged in on page load
+    window.onload = function() {
+        const savedAuth = localStorage.getItem('basicAuth');
+        if (savedAuth) {
+            const username = atob(savedAuth).split(':')[0];
+            currentUser = username;
+            updateUI();
+        }
+    };
+
+    function updateUI() {
+        if (currentUser) {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('user-info').classList.remove('hidden');
+            document.getElementById('user-name').textContent = currentUser;
+        } else {
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('user-info').classList.add('hidden');
+        }
+    }
+
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (!username || !password) {
+            alert('Please enter both username and password');
+            return;
+        }
+
+        const auth = btoa(username + ':' + password);
+        localStorage.setItem('basicAuth', auth);
+
+        // Test authentication
+        fetch('/api/auth/me', {
+            headers: {
+                'Authorization': 'Basic ' + auth
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                currentUser = username;
+                updateUI();
             } else {
-                // User is signed out
-                document.getElementById('login-form').classList.remove('hidden');
-                document.getElementById('user-info').classList.add('hidden');
-                document.getElementById('api-test').classList.add('hidden');
-                localStorage.removeItem('authToken');
+                localStorage.removeItem('basicAuth');
+                alert('Authentication failed');
             }
+            return response.json();
+        })
+        .then(data => console.log(data))
+        .catch(error => {
+            localStorage.removeItem('basicAuth');
+            alert('Error: ' + error.message);
         });
+    }
 
-        function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+    function logout() {
+        localStorage.removeItem('basicAuth');
+        currentUser = null;
+        updateUI();
+    }
 
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .catch(function(error) {
-                    alert('Login failed: ' + error.message);
-                });
-        }
-
-        function register() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const displayName = document.getElementById('display-name').value;
-
-            // Option 1: Using Firebase directly
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(function(userCredential) {
-                    // Update display name
-                    return userCredential.user.updateProfile({
-                        displayName: displayName
-                    });
-                })
-                .catch(function(error) {
-                    alert('Registration failed: ' + error.message);
-                });
-
-            // Option 2: Using your backend API
-            // fetch('/api/auth/register', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify({
-            //         email: email,
-            //         password: password,
-            //         displayName: displayName
-            //     })
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     if (data.error) {
-            //         alert('Registration failed: ' + data.error);
-            //     } else {
-            //         alert('Registration successful! Please login.');
-            //     }
-            // })
-            // .catch(error => {
-            //     alert('Registration failed: ' + error);
-            // });
-        }
-
-        function logout() {
-            firebase.auth().signOut();
-        }
-
-        function fetchWasteCategories() {
-            fetch('/api/waste-categories')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
-                })
-                .catch(error => {
-                    document.getElementById('result').textContent = 'Error: ' + error.message;
-                });
-        }
-
-        function createWasteCategory() {
-            const token = localStorage.getItem('authToken');
-
-            if (!token) {
-                document.getElementById('result').textContent = 'Error: You must be logged in';
-                return;
-            }
-
-            const newCategory = {
-                name: 'Organic Waste',
-                description: 'Biodegradable waste from plants and animals'
-            };
-
-            fetch('/api/waste-categories', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                },
-                body: JSON.stringify(newCategory)
-            })
+    function fetchWasteCategories() {
+        fetch('/api/waste-categories')
             .then(response => response.json())
             .then(data => {
                 document.getElementById('result').textContent = JSON.stringify(data, null, 2);
@@ -198,7 +141,37 @@
             .catch(error => {
                 document.getElementById('result').textContent = 'Error: ' + error.message;
             });
+    }
+
+    function createWasteCategory() {
+        const auth = localStorage.getItem('basicAuth');
+
+        if (!auth) {
+            document.getElementById('result').textContent = 'Error: You must be logged in';
+            return;
         }
-    </script>
+
+        const newCategory = {
+            name: 'Organic Waste ' + new Date().getTime(),
+            description: 'Biodegradable waste from plants and animals'
+        };
+
+        fetch('/api/waste-categories', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + auth
+            },
+            body: JSON.stringify(newCategory)
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            document.getElementById('result').textContent = 'Error: ' + error.message;
+        });
+    }
+</script>
 </body>
 </html>
