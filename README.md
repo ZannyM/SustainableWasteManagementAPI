@@ -1,17 +1,19 @@
-# Sustainable Waste Management API
-
+## Sustainable Waste Management API
 A RESTful API for sustainable waste management, providing information on waste categories, recycling tips, and disposal guidelines.
 
-## Features
+### Features
 
 - **Waste Categories Management**: Add, update, retrieve, and delete waste categories
 - **Recycling Tips**: Get actionable insights on how to recycle different materials
 - **Disposal Guidelines**: Retrieve best practices for safe and sustainable disposal
-- **Firebase Authentication**: Secure endpoints with Firebase Auth
+- **Spring Security Authentication**: Simple and secure username/password authentication
 - **Role-Based Access Control**: Different access levels for users and admins
+- **Soft Delete Functionality**: Preserves data relationships while allowing "deletion"
 - **Performance Optimization**:
-    - Caching 
-    - Rate limiting to prevent abuse
+    - Caching for improved response times
+    - Rate limiting to prevent API abuse
+
+
 - **API Documentation**: Swagger/OpenAPI documentation
 - **Monitoring**: Application health metrics and performance monitoring
 
@@ -21,120 +23,115 @@ A RESTful API for sustainable waste management, providing information on waste c
 - Spring Boot 3.x
 - Maven 3.6+
 - Spring Security
-- Firebase Authentication
 - H2 Database (for development)
 - Swagger/OpenAPI
 - Actuator & Micrometer (for monitoring)
 - Postman (API Testing)
 
-## Getting Started
+### Getting Started
 
-1. Clone the repository:
+Clone the repository:
 
-        git clone https://github.com/ZannyM/SustainableWasteManagementAPI
+    git clone https://github.com/ZannyM/SustainableWasteManagementAPI
 
-2. Set up environment variables:
+Build the project:
 
-        export FIREBASE_PROJECT_ID=your-project-id
-        export FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYourKey\n-----END PRIVATE KEY-----\n"
-        export FIREBASE_CLIENT_EMAIL=your-service-account-email
+    mvn clean install
 
-3. Build the project:
+Run the application:
 
-        mvn clean install
+    mvn spring-boot:run
 
-4. Run the application:
+Access the API at:
 
-         mvn spring-boot:run
+    http://localhost:8080
 
-5. Access the API at:
+Access the API documentation at:
 
-        http://localhost:8080
+    http://localhost:8080/swagger-ui/index.html
 
-6. Access the API documentation at:
-
-         http://localhost:8080/swagger-ui.html
-
+### Authentication
+The API uses Spring Security with basic authentication:
+#### Regular User:
+Can perform standard operations
+- Username: `user`
+- Password: `password`
+- 
+#### Admin User:
+Has access to all endpoints including admin operations
+- Username: `admin`
+- Password: `admin`
 
 ## API Endpoints
 
 ### WasteCategory Endpoints
-| Method | Endpoint                  | Description                  |
-|--------|---------------------------|------------------------------|
-| GET    | `/api/waste-categories`   | Retrieve all waste categories |
-| GET    | `/api/waste-categories/{id}` | Retrieve a waste category by ID |
-| POST   | `/api/waste-categories`   | Create a new waste category   |
-| PUT    | `/api/waste-categories/{id}` | Update a waste category       |
-| DELETE | `/api/waste-categories/{id}` | Delete a waste category       |
+| Method | Endpoint                     | Description                     | Authentication |
+|--------|------------------------------|---------------------------------|----------------|
+| GET    | `/api/waste-categories`      | Retrieve all waste categories   | None           |
+| GET    | `/api/waste-categories/{id}` | Retrieve a waste category by ID | None           |
+| POST   | `/api/waste-categories`      | Create a new waste category     | Required       |
+| PUT    | `/api/waste-categories/{id}` | Update a waste category         | Required       |
+| DELETE | `/api/waste-categories/{id}` | Soft-delete a waste category    | Required       |
 
 ### RecyclingTip Endpoints
-| Method | Endpoint                | Description                  |
-|--------|-------------------------|------------------------------|
-| GET    | `/api/recycling-tips`   | Retrieve all recycling tips  |
-| GET    | `/api/recycling-tips/{id}` | Retrieve a recycling tip by ID |
-| POST   | `/api/recycling-tips`   | Create a new recycling tip   |
-| PUT    | `/api/recycling-tips/{id}` | Update a recycling tip       |
-| DELETE | `/api/recycling-tips/{id}` | Delete a recycling tip       |
+| Method | Endpoint                   | Description                    | Authentication  |
+|--------|----------------------------|--------------------------------|-----------------|
+| GET    | `/api/recycling-tips`      | Retrieve all recycling tips    | None            |
+| GET    | `/api/recycling-tips/{id}` | Retrieve a recycling tip by ID | None            |
+| POST   | `/api/recycling-tips`      | Create a new recycling tip     | Required        |
+| PUT    | `/api/recycling-tips/{id}` | Update a recycling tip         | Required        |
+| DELETE | `/api/recycling-tips/{id}` | Soft-delete a recycling tip    | Required        |
 
 ### DisposalGuideline Endpoints
-| Method | Endpoint                          | Description                           |
-|--------|-----------------------------------|---------------------------------------|
-| GET    | `/api/disposal-guidelines`        | Retrieve all disposal guidelines      |
-| GET    | `/api/disposal-guidelines/{id}`   | Retrieve a disposal guideline by ID   |
-| POST   | `/api/disposal-guidelines`        | Create a new disposal guideline       |
-| PUT    | `/api/disposal-guidelines/{id}`   | Update a disposal guideline           |
-| DELETE | `/api/disposal-guidelines/{id}`   | Delete a disposal guideline           |
-
-
-### DisposalGuideline Endpoints
-| Method | Endpoint                          | Description                           |
-|--------|-----------------------------------|---------------------------------------|
-| GET    | `/api/disposal-guidelines`        | Retrieve all disposal guidelines      |
-| GET    | `/api/disposal-guidelines/{id}`   | Retrieve a disposal guideline by ID   |
-| POST   | `/api/disposal-guidelines`        | Create a new disposal guideline       |
-| PUT    | `/api/disposal-guidelines/{id}`   | Update a disposal guideline           |
-| DELETE | `/api/disposal-guidelines/{id}`   | Delete a disposal guideline           |
+| Method | Endpoint                          | Description                           | Authentication|
+|--------|-----------------------------------|---------------------------------------|---------------|
+| GET    | `/api/disposal-guidelines`        | Retrieve all disposal guidelines      | None          |
+| GET    | `/api/disposal-guidelines/{id}`   | Retrieve a disposal guideline by ID   | None          |
+| POST   | `/api/disposal-guidelines`        | Create a new disposal guideline       | Required      |
+| PUT    | `/api/disposal-guidelines/{id}`   | Update a disposal guideline           | Required      |
+| DELETE | `/api/disposal-guidelines/{id}`   | Soft-delete a disposal guideline      | Required      |
 
 ### Admin Endpoints
-| Method | Endpoint                           | Description                             |
-|-----|------------------------------------|-----------------------------------------|
-| POST | `/api/admin/waste-categories`      | Create a new user (admin only)            |
-| PUT | `/api/admin/waste-categories/{id}` | Update user information                 |
-| DELETE | `/api/admin/waste-categories/{id}` | Delete a user                           |
+| Method | Endpoint                           | Description                             | Authentication |
+|--------|------------------------------------|-----------------------------------------|----------------|
+| POST   | `/api/admin/waste-categories`      | Create a new user (admin only)          | Admin Only     |
+| PUT    | `/api/admin/waste-categories/{id}` | Update user information                 | Admin Only     |
+| DELETE | `/api/admin/waste-categories/{id}` | Delete a user                           | Admin Only     |
 
-### Authentication
+### Authentication Endpoints
+| Method | Endpoint            | Description                     | Authentication |
+|--------|---------------------|---------------------------------|----------------|
+| GET    | `/api/auth/me`      | Get current user information    | Required       |
 
-- `POST /api/auth/register` - Register a new user
+### Soft Delete Implementation
+This API implements a soft delete approach:
+- Records are not physically removed from the database
+- Instead, they are marked as inactive with an `active` flag
+- This preserves data relationships and prevents constraint violations
+- Only active records are returned by default in API responses
 
-## Security
-
+### Security
 - Public endpoints: GET operations on waste categories, recycling tips, and disposal guidelines
 - Protected endpoints: POST, PUT, DELETE operations (require authentication)
-- Admin endpoints: Special operations for administrators
+- Admin endpoints: Special operations for administrators only
 
-## Monitoring
-
+### Monitoring
 - Application health: `http://localhost:8080/actuator/health`
 - Metrics: `http://localhost:8080/actuator/metrics`
 - Prometheus metrics: `http://localhost:8080/actuator/prometheus`
 
-## Testing
-
-- JUnit 5: Unit and integration testing framework.
-
-- Mockito: Mocking framework for isolating dependencies during tests.
-
-- Spring Boot Test: For comprehensive testing of Spring components.
+###Testing
+- JUnit 5: Unit and integration testing framework
+- Mockito: Mocking framework for isolating dependencies during tests
+- Spring Boot Test: For comprehensive testing of Spring components
+ -Swagger UI: For interactive API testing
 
 ### Running Tests
-
 Run Unit and Integration Tests:
 
-        mvn test
-## License
-
+    mvn test
+    
+#### License
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-### Contributors
-
+#### Contributors
 Zanny Maholobela
