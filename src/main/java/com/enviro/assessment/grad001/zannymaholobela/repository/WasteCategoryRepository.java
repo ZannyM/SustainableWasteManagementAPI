@@ -13,9 +13,15 @@ import java.util.Optional;
 @Repository
 public interface WasteCategoryRepository extends JpaRepository<WasteCategory, Long> {
 
+
     //Find wastecategory by name
     Optional<WasteCategory> findByName(String namevalue);
 
+    List<WasteCategory> findByActiveTrue();
+
+    Optional<WasteCategory> findByIdAndActiveTrue(Long id);
+
+    Optional<WasteCategory> findByNameAndActiveTrue(String namevalue);
 }
 
 

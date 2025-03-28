@@ -33,44 +33,56 @@ public class DisposalGuideline {
     @NotNull(message = "Hazardous field must be specified")
     private Boolean hazardous;
 
-    // Getters and Setters
+    @Column(nullable = false)
+    private Boolean active = true;
+
+    // Getters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getWasteType() {
         return wasteType;
     }
 
-    public void setWasteType(String wasteType) {
-        this.wasteType = wasteType;
-    }
-
     public String getDisposalMethod() {
         return disposalMethod;
-    }
-
-    public void setDisposalMethod(String disposalMethod) {
-        this.disposalMethod = disposalMethod;
     }
 
     public String getInstructions() {
         return instructions;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
-
     public Boolean getHazardous() {
         return hazardous;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    //Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setWasteType(String wasteType) {
+        this.wasteType = wasteType;
+    }
+
+    public void setDisposalMethod(String disposalMethod) {
+        this.disposalMethod = disposalMethod;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
     public void setHazardous(Boolean hazardous) {
         this.hazardous = hazardous;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

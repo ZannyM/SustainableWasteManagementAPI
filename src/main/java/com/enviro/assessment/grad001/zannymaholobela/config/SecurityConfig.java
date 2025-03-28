@@ -41,34 +41,34 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user, admin);
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
-        return http.build();
-    }
 //    @Bean
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> csrf.disable())
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(auth -> auth
-//                        // Allow access to static resources and Swagger
-//                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-//                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-//                        // Public endpoints - allow read access to waste categories, tips, and guidelines
-//                        .requestMatchers(HttpMethod.GET, "/api/waste-categories/**", "/api/recycling-tips/**", "/api/disposal-guidelines/**").permitAll()
-//                        // Admin endpoints - require ADMIN role
-//                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-//                        // All other write operations require authentication
-//                        .requestMatchers(HttpMethod.POST, "/api/**").authenticated()
-//                        .requestMatchers(HttpMethod.PUT, "/api/**").authenticated()
-//                        .requestMatchers(HttpMethod.DELETE, "/api/**").authenticated()
-//                        // Default policy for anything else
-//                        .anyRequest().authenticated()
-//                )
-//                .httpBasic(httpBasic -> {});
-//
+//        http.csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
 //        return http.build();
 //    }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        // Allow access to static resources and Swagger
+                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        // Public endpoints - allow read access to waste categories, tips, and guidelines
+                        .requestMatchers(HttpMethod.GET, "/api/waste-categories/**", "/api/recycling-tips/**", "/api/disposal-guidelines/**").permitAll()
+                        // Admin endpoints - require ADMIN role
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        // All other write operations require authentication
+                        .requestMatchers(HttpMethod.POST, "/api/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/**").authenticated()
+                        // Default policy for anything else
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(httpBasic -> {});
+
+        return http.build();
+    }
 }

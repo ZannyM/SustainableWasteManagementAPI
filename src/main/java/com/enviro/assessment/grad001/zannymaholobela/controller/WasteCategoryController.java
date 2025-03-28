@@ -31,19 +31,21 @@ public class WasteCategoryController {
     public WasteCategoryController(WasteCategoryService wasteCategoryService) {
         this.wasteCategoryService = wasteCategoryService;
     }
+
     //Get all wasteCategories
     @GetMapping
-    public ResponseEntity<List<WasteCategory>> getAllCategories(){
+    public ResponseEntity<List<WasteCategory>> getAllCategories() {
         List<WasteCategory> categories = wasteCategoryService.getAllCategories();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     //Get wasteCategory by ID
     @GetMapping("/{id}")
-    public  ResponseEntity<WasteCategory> getCategoryById(@PathVariable Long id){
+    public ResponseEntity<WasteCategory> getCategoryById(@PathVariable Long id) {
         Optional<WasteCategory> category = wasteCategoryService.getWasteCategoryById(id);
-        return category.map(ResponseEntity::ok).orElseThrow(() ->new ResourceNotFoundException("WasteCategory not found with ID: " + id));
+        return category.map(ResponseEntity::ok).orElseThrow(() -> new ResourceNotFoundException("WasteCategory not found with ID: " + id));
     }
+
     // Create a new WasteCategory
     @PostMapping
     public ResponseEntity<?> createCategory(@Validated @RequestBody WasteCategory wasteCategory) {
@@ -69,11 +71,18 @@ public class WasteCategoryController {
         Optional<WasteCategory> category = wasteCategoryService.updateWasteCategory(id, updatedCategory);
         return ResponseEntity.ok(category);
     }
+
     // Delete a WasteCategory
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
         wasteCategoryService.deleteWasteCategory(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
+    //restore a waste category
+    @PostMapping("/{id}/restore")
+    public ResponseEntity<WasteCategory> restoreCategory(@PathVariable Long id) {
+        WasteCategory restored = wasteCategoryService.restoreWasteCategory(id);
+        return ResponseEntity.ok(restored);
+    }
 }

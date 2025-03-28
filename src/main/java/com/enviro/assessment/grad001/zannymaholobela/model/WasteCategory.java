@@ -25,6 +25,8 @@ public class WasteCategory {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    private Boolean active = true;  // Default to active
 
     //default constructor (required by JPA)
     public WasteCategory(){
@@ -44,10 +46,19 @@ public class WasteCategory {
         return description;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+
     //Setters
 
     public void setId(Long id){
         this.id = id;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public void setName(String name){

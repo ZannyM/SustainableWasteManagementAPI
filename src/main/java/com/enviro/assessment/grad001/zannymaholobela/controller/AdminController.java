@@ -66,4 +66,10 @@ public class AdminController {
     private ResponseMessage createResponse(String message) {
         return new ResponseMessage(message);
     }
+
+    @DeleteMapping("/{id}/permanent")
+    public ResponseEntity<ResponseMessage> permanentlyDeleteWasteCategory(@PathVariable Long id) {
+        wasteCategoryService.hardDeleteWasteCategory(id);
+        return new ResponseEntity<>(createResponse("Waste category permanently deleted"), HttpStatus.OK);
+    }
 }

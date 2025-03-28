@@ -5,13 +5,17 @@ CREATE TABLE waste_category (
     description VARCHAR(255) NOT NULL
 );
 
+    ALTER TABLE waste_category ADD COLUMN active BOOLEAN NOT NULL DEFAULT TRUE;
+
 --recycling tip table schema
 CREATE TABLE recycling_tip (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     category_id BIGINT NOT NULL,              -- Changed to BIGINT to match waste_category id
     tip VARCHAR(255) NOT NULL,             -- Changed from recycling_tip to tip
     FOREIGN KEY (category_id) REFERENCES waste_category(id)  -- Added foreign key constraint
+
 );
+    ALTER TABLE recycling_tip ADD COLUMN active BOOLEAN NOT NULL DEFAULT TRUE;
 
 --disposal guideline table schema
 CREATE TABLE disposal_guideline (
@@ -20,4 +24,6 @@ CREATE TABLE disposal_guideline (
     disposal_method VARCHAR(255) NOT NULL,
     instructions VARCHAR(255) NOT NULL,
     hazardous BOOLEAN NOT NULL
+
 );
+    ALTER TABLE disposal_guideline ADD COLUMN active BOOLEAN NOT NULL DEFAULT TRUE;

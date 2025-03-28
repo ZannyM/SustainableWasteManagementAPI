@@ -29,7 +29,7 @@ public class WasteCategoryService {
      */
     @Cacheable("wasteCategories")
     public List<WasteCategory> getAllCategories(){
-        return wasteCategoryRepository.findAll();
+        return wasteCategoryRepository.findByActiveTrue();
     }
     /**
      * Find one WasteCategory by ID.
@@ -39,7 +39,7 @@ public class WasteCategoryService {
      */
     @Cacheable(value = "wasteCategory", key = "#id")
     public Optional<WasteCategory> getWasteCategoryById(Long id){
-        return wasteCategoryRepository.findById(id);
+        return wasteCategoryRepository.findByIdAndActiveTrue(id);
     }
     /**
      * Save a WasteCategory.
@@ -80,9 +80,12 @@ public class WasteCategoryService {
      * @param id the ID of the entity
      */
     @CacheEvict(value = {"wasteCategories", "wasteCategory"}, allEntries = true)
-    public void deleteWasteCategory(Long id){
-        if(wasteCategoryRepository.existsById(id)){
-            wasteCategoryRepository.deleteById(id);
+    public void deleteWasteCategory(Long id) {
+        Optional<WasteCategory> category = wasteCategoryRepository.findById(id);
+        if (category.isPresent()) {
+            WasteCategory wasteCategoryToUpdate = category.get();
+            wasteCategoryToUpdate.setActive(false);
+            wasteCategoryRepository.save(wasteCategoryToUpdate);
         } else {
             throw new RuntimeException("WasteCategory not found with ID: " + id);
         }
@@ -91,5 +94,24 @@ public class WasteCategoryService {
     @CacheEvict(value = {"wasteCategories", "wasteCategory"}, allEntries = true)
     public void createWasteCategory(WasteCategory wasteCategory) {
         wasteCategoryRepository.save(wasteCategory);
+    }
+    // restore
+    public WasteCategory restoreWasteCategory(Long id) {
+        Optional<WasteCategory> category = wasteCategoryRepository.findById(id);
+        if (category.isPresent()) {
+            WasteCategory wasteCategoryToRestore = category.get();
+            wasteCategoryToRestore.setActive(true);
+            return wasteCategoryRepository.save(wasteCategoryToRestore);
+        } else {
+            throw new RuntimeException("WasteCategory not found with ID: " + id);
+        }
+    }
+    //for admins to permanently delete records
+    public void hardDeleteWasteCategory(Long id) {
+        if (wasteCategoryRepository.existsById(id)) {
+            wasteCategoryRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("WasteCategory not found with ID: " + id);
+        }
     }
 }

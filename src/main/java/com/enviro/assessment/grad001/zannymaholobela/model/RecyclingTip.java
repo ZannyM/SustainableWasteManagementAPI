@@ -28,6 +28,10 @@ public class RecyclingTip {
     @Transient
     private String categoryName;
 
+    @Column(nullable = false)
+    private Boolean active = true;
+
+
     //Getters
 
     public Long getId(){
@@ -46,6 +50,10 @@ public class RecyclingTip {
         return tip;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
     //Setters
 
     public void setId(Long id) {
@@ -62,5 +70,9 @@ public class RecyclingTip {
 
     public void setRecyclingTips(String tip){
         this.tip = tip;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
