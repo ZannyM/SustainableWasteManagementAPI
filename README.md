@@ -16,6 +16,12 @@ A RESTful API for sustainable waste management, providing information on waste c
 
 - **API Documentation**: Swagger/OpenAPI documentation
 - **Monitoring**: Application health metrics and performance monitoring
+- 
+### Live API
+
+The API is deployed and accessible at `https://sustainablewastemanagementapi.onrender.com`
+
+Interactive API documentation is available at: `https://sustainablewastemanagementapi.onrender.com/swagger-ui/index.html`
 
 ### Prerequisites
 
@@ -28,7 +34,7 @@ A RESTful API for sustainable waste management, providing information on waste c
 - Actuator & Micrometer (for monitoring)
 - Postman (API Testing)
 
-### Getting Started
+### Getting Started With Local Development
 
 Clone the repository:
 
